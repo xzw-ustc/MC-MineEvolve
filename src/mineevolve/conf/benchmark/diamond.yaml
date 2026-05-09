@@ -1,0 +1,22 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Diamond tier (paper Table 3): 7 tasks - diamond mining, diamond tools, repairing/trading high-tier.
+env:
+  name: DiamondTaskEnv-v0
+  max_minutes: 30
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0, type: mine,  instruction: "Dig down and mine a diamond"}
+  - {id: 1, type: craft, instruction: "Craft a diamond pickaxe"}
+  - {id: 2, type: craft, instruction: "Craft a diamond axe"}
+  - {id: 3, type: craft, instruction: "Craft a diamond shovel"}
+  - {id: 4, type: craft, instruction: "Craft a diamond hoe"}
+  - {id: 5, type: craft, instruction: "Craft a diamond sword"}
+  - {id: 6, type: craft, instruction: "Craft a jukebox"}

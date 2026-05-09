@@ -1,0 +1,9 @@
+# @package _global_
+llm:
+  provider: qwen
+  model: qwen-flash
+  base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  api_key: null         # null -> read from env DASHSCOPE_API_KEY
+  timeout: 120.0
+  temperature: 0.2
+  max_tokens: 1024

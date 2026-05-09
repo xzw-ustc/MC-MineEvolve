@@ -1,0 +1,31 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Iron tier (paper Table 3): 16 tasks - iron mining, smelting, iron tools/weapons, villager trading.
+env:
+  name: IronTaskEnv-v0
+  max_minutes: 20
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0,  type: craft, instruction: "Craft an iron pickaxe"}
+  - {id: 1,  type: craft, instruction: "Craft an iron axe"}
+  - {id: 2,  type: craft, instruction: "Craft an iron shovel"}
+  - {id: 3,  type: craft, instruction: "Craft an iron hoe"}
+  - {id: 4,  type: craft, instruction: "Craft an iron sword"}
+  - {id: 5,  type: craft, instruction: "Craft a bucket"}
+  - {id: 6,  type: craft, instruction: "Craft a hopper"}
+  - {id: 7,  type: craft, instruction: "Craft a rail"}
+  - {id: 8,  type: craft, instruction: "Craft shears"}
+  - {id: 9,  type: craft, instruction: "Craft a smithing table"}
+  - {id: 10, type: craft, instruction: "Craft an iron nugget"}
+  - {id: 11, type: craft, instruction: "Craft iron bars"}
+  - {id: 12, type: smelt, instruction: "Smelt iron ore into iron ingot"}
+  - {id: 13, type: mine,  instruction: "Dig down to mine iron ore"}
+  - {id: 14, type: mine,  instruction: "Mine three iron ore blocks"}
+  - {id: 15, type: craft, instruction: "Trade with a villager to obtain an iron ingot"}

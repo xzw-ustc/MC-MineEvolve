@@ -1,0 +1,26 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Wooden tier (paper Table 3): 11 tasks - wooden tools/weapons + log/plank/stick/sapling gathering.
+env:
+  name: WoodenTaskEnv-v0
+  max_minutes: 2          # paper Table 3 horizon
+  initial_inventory: []   # MineEvolve forbids cheat items; must be []
+  prefer_biome: forest
+  times: 1                # repetitions per task
+
+evaluate: []              # [] -> all 11 tasks
+
+all_task:
+  - {id: 0,  type: craft, instruction: "Craft a wooden pickaxe"}
+  - {id: 1,  type: craft, instruction: "Craft a wooden axe"}
+  - {id: 2,  type: craft, instruction: "Craft a wooden shovel"}
+  - {id: 3,  type: craft, instruction: "Craft a wooden hoe"}
+  - {id: 4,  type: craft, instruction: "Craft a wooden sword"}
+  - {id: 5,  type: craft, instruction: "Craft a stick"}
+  - {id: 6,  type: craft, instruction: "Craft a crafting table"}
+  - {id: 7,  type: craft, instruction: "Craft an oak plank"}
+  - {id: 8,  type: mine,  instruction: "Chop an oak log from a tree"}
+  - {id: 9,  type: mine,  instruction: "Collect a sapling from a tree"}
+  - {id: 10, type: mine,  instruction: "Punch a tree to gather wood without tools"}

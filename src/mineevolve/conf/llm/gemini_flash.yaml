@@ -1,0 +1,9 @@
+# @package _global_
+llm:
+  provider: gemini
+  model: gemini-2.5-flash
+  base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+  api_key: null         # null -> read from env GOOGLE_API_KEY
+  timeout: 120.0
+  temperature: 0.2
+  max_tokens: 1536

@@ -1,0 +1,22 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Gold tier (paper Table 3): 7 tasks - gold tools, golden foods, repairing golden equipment.
+env:
+  name: GoldTaskEnv-v0
+  max_minutes: 10
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0, type: craft, instruction: "Craft a golden pickaxe"}
+  - {id: 1, type: craft, instruction: "Craft a golden axe"}
+  - {id: 2, type: craft, instruction: "Craft a golden sword"}
+  - {id: 3, type: craft, instruction: "Craft a golden hoe"}
+  - {id: 4, type: craft, instruction: "Craft a golden apple"}
+  - {id: 5, type: craft, instruction: "Craft a golden carrot"}
+  - {id: 6, type: smelt, instruction: "Smelt gold ore into gold ingot"}

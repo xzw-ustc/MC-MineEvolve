@@ -1,0 +1,49 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Environments
+.venv/
+venv/
+env/
+.python-version
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs / outputs
+logs/
+videos/
+outputs/
+.hydra/
+
+# Hydra default run dir
+multirun/
+
+# Local runtime artefacts
+**/memories/run_*/
+*.log
+
+# Model weights (download separately, see README.md)
+checkpoints/**/*.weights
+checkpoints/**/*.pt
+checkpoints/**/*.pth
+checkpoints/**/*.model
+checkpoints/**/*.zip
+
+# Secrets
+.env
+*.api_key

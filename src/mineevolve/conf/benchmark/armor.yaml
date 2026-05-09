@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Armor tier (paper Table 3): 13 tasks - leather/iron armor, washing/repairing armor, helmets.
+env:
+  name: ArmorTaskEnv-v0
+  max_minutes: 25
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0,  type: craft, instruction: "Craft a leather helmet"}
+  - {id: 1,  type: craft, instruction: "Craft a leather chestplate"}
+  - {id: 2,  type: craft, instruction: "Craft leather leggings"}
+  - {id: 3,  type: craft, instruction: "Craft leather boots"}
+  - {id: 4,  type: craft, instruction: "Craft an iron helmet"}
+  - {id: 5,  type: craft, instruction: "Craft an iron chestplate"}
+  - {id: 6,  type: craft, instruction: "Craft iron leggings"}
+  - {id: 7,  type: craft, instruction: "Craft iron boots"}
+  - {id: 8,  type: craft, instruction: "Craft a shield"}
+  - {id: 9,  type: craft, instruction: "Craft a turtle shell helmet"}
+  - {id: 10, type: craft, instruction: "Wash a leather chestplate in a cauldron"}
+  - {id: 11, type: craft, instruction: "Repair an iron helmet at a smithing table"}
+  - {id: 12, type: kill,  instruction: "Kill a cow to obtain leather"}

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mineevolve"
+version = "0.1.0"
+description = "MineEvolve: Self-evolution with accumulated knowledge for long-horizon embodied Minecraft agents."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "MineEvolve Authors" }
+]
+keywords = ["minecraft", "embodied-agent", "llm-planner", "minerl", "steve-1"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["mineevolve*"]
+
+[tool.setuptools.package-data]
+mineevolve = ["conf/**/*.yaml", "conf/**/*.yml"]

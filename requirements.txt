@@ -1,0 +1,34 @@
+# Core deep learning stack (pin loose; user picks CUDA/CPU build)
+torch>=2.0.0
+numpy>=1.21,<2.0
+opencv-python>=4.5
+Pillow>=9.0
+
+# Minecraft platform - install official MineRL separately if you do not use MineStudio
+# (MineRL has its own Java + MCP-Reborn build steps; see docs in the official repo)
+# minerl==1.0.2
+
+# STEVE-1 low-level policy access. Choose ONE source:
+#   (a) MineStudio bundles a STEVE-1 loader and HF-hosted weights:
+MineStudio>=0.0.5
+#   (b) or pip install the original STEVE-1 package directly (uncomment if used):
+# steve1 @ git+https://github.com/Shalev-Lifshitz/STEVE-1.git
+
+# Configuration
+hydra-core>=1.3.2
+omegaconf>=2.3.0
+PyYAML>=6.0
+
+# Server / client
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+requests>=2.31.0
+pydantic>=2.0.0
+
+# LLM client (works with OpenAI, Qwen-DashScope, GLM-Bigmodel, Gemini-OpenAI-compat)
+openai>=1.30.0
+
+# Output / utilities
+rich>=13.0.0
+tenacity>=8.2.3
+typing_extensions>=4.8.0

@@ -1,0 +1,21 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Redstone tier (paper Table 3): 6 tasks - redstone components, simple mechanisms, basic circuits/clocks.
+env:
+  name: RedstoneTaskEnv-v0
+  max_minutes: 15
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0, type: mine,  instruction: "Mine redstone ore using an iron pickaxe"}
+  - {id: 1, type: craft, instruction: "Craft a redstone torch"}
+  - {id: 2, type: craft, instruction: "Craft a redstone repeater"}
+  - {id: 3, type: craft, instruction: "Craft a redstone comparator"}
+  - {id: 4, type: craft, instruction: "Craft a piston"}
+  - {id: 5, type: craft, instruction: "Craft a clock"}

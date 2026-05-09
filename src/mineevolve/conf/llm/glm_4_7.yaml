@@ -1,0 +1,9 @@
+# @package _global_
+llm:
+  provider: glm
+  model: glm-4-plus
+  base_url: https://open.bigmodel.cn/api/paas/v4/
+  api_key: null         # null -> read from env ZHIPUAI_API_KEY
+  timeout: 120.0
+  temperature: 0.2
+  max_tokens: 1536

@@ -1,0 +1,25 @@
+# @package _global_
+defaults:
+  - _self_
+
+# Stone tier (paper Table 3): 10 tasks - stone tools/weapons + cobblestone mining + tool upgrades.
+env:
+  name: StoneTaskEnv-v0
+  max_minutes: 3
+  initial_inventory: []
+  prefer_biome: plains
+  times: 1
+
+evaluate: []
+
+all_task:
+  - {id: 0, type: craft, instruction: "Craft a stone pickaxe"}
+  - {id: 1, type: craft, instruction: "Craft a stone axe"}
+  - {id: 2, type: craft, instruction: "Craft a stone shovel"}
+  - {id: 3, type: craft, instruction: "Craft a stone hoe"}
+  - {id: 4, type: craft, instruction: "Craft a stone sword"}
+  - {id: 5, type: craft, instruction: "Craft a furnace"}
+  - {id: 6, type: craft, instruction: "Upgrade a wooden pickaxe to a stone pickaxe"}
+  - {id: 7, type: mine,  instruction: "Mine cobblestone with a wooden pickaxe"}
+  - {id: 8, type: mine,  instruction: "Mine stone slab material from a stone outcrop"}
+  - {id: 9, type: mine,  instruction: "Mine eight cobblestone blocks for a furnace"}

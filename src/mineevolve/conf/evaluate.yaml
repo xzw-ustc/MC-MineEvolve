@@ -1,0 +1,60 @@
+defaults:
+  - _self_
+  - benchmark: wooden
+  - llm: qwen_plus
+
+# Server endpoint (uvicorn host)
+server:
+  url: http://127.0.0.1
+  port: 9000
+  timeout: 600
+
+# Algorithm 1 hyperparameters (paper Section 3 + Algorithm 1 + Figure 3)
+runtime:
+  max_subgoals: 12              # cap on plan length
+  max_steps_per_subgoal: 1200   # one in-game minute at 20 ticks per second
+  eta_fail: 0.5                 # paper Eq. (5) failure-rate threshold
+  recent_window: 4              # window h in Eq. (5)
+  budget_tokens: 512            # paper Eq. (7) prompt budget B
+  top_k: 16                     # max retrieved knowledge entries
+  # Cross-subgoal deadlock detection (Figure 3 task-level remedy trigger)
+  deadlock_window: 8
+  deadlock_min_distinct_subgoals: 2
+  deadlock_min_repeats: 3
+  monitor_progress_weights:
+    lambda_x: 0.4
+    lambda_v: 0.4
+    lambda_g: 0.2
+    eps_x: 1.0
+    eps_v: 1.0
+    eps_p: 0.10                 # paper Eq. (3) stagnation threshold
+
+# External knowledge store path (Algorithm 1 K)
+memory:
+  path: memories/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+# Per-step recording
+record:
+  video:
+    save: false
+    path: videos/${now:%Y-%m-%d}
+  action:
+    save: false
+
+# Quality-of-life game commands issued at episode reset.
+# IMPORTANT: NO /give, NO /replaceitem, NO /fill <ore>. The agent must
+# obtain every required resource through interaction with the environment
+# (paper Section 4.1 and Appendix B.2).
+commands:
+  - /gamerule sendCommandFeedback false
+  - /gamerule commandBlockOutput false
+  - /gamerule keepInventory true
+  - /effect give @a night_vision 99999 250 true
+  - /gamerule doDaylightCycle false
+  - /time set 0
+  - /gamerule doImmediateRespawn true
+  - /spawnpoint
+
+hydra:
+  run:
+    dir: ./logs/eval/${now:%Y-%m-%d}/${now:%H-%M-%S}
