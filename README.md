@@ -2,9 +2,7 @@
 
 Open-source implementation of **MineEvolve** — a knowledge-driven self-evolution framework for long-horizon embodied Minecraft agents.
 
-> Paper: *MineEvolve: Self-Evolution with Accumulated Knowledge for Long-Horizon Embodied Minecraft Agents*
-
-This repository contains a minimal end-to-end implementation of the four-stage MineEvolve pipeline (Monitor → Inducer → Curator → Adaptor) on top of MineRL + STEVE-1, evaluated on a 70-task subset of the MCU tech-tree benchmark with strictly empty initial inventories.
+This repository contains a minimal end-to-end implementation of the four-stage MineEvolve pipeline (Monitor → Inducer → Curator → Adaptor) on top of MineRL + STEVE-1
 
 ---
 
