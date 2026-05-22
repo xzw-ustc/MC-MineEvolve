@@ -148,6 +148,8 @@ def _bootstrap_default_cfg() -> dict:
             "mineclip_weights": os.environ.get(
                 "MINEEVOLVE_MINECLIP_WEIGHTS", "checkpoints/mineclip/attn.pth"
             ),
+            "device": os.environ.get("MINEEVOLVE_STEVE_DEVICE", "cuda"),
+            "cond_scale": float(os.environ.get("MINEEVOLVE_STEVE_COND_SCALE", "4.0")),
         },
         "load_steve": True,
     }

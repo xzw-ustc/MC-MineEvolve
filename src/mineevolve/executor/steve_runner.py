@@ -90,3 +90,6 @@ class SteveRunner:
     def reset_episode(self) -> None:
         self._condition_obj = None
         self._state = None
+        reset = getattr(self.policy, "reset_episode", None)
+        if callable(reset):
+            reset()

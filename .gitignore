@@ -14,7 +14,7 @@ dist/
 # Environments
 .venv/
 venv/
-env/
+/env/
 .python-version
 
 # Editor / OS

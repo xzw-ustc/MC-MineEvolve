@@ -12,6 +12,8 @@ import threading
 import uuid
 from typing import Any, Dict, List, Mapping, Sequence
 
+import numpy as np
+
 from ..adaptor import (
     assemble_repaired_plan,
     need_repair,
@@ -145,7 +147,7 @@ class MineEvolveAgent:
                 action = self._steve.act(obs)
             except Exception as exc:
                 return {"action": None, "error": str(exc)}
-        return {"action": action}
+        return {"action": _jsonable(action)}
 
     # ------------------------------------------------------------------
     # /chat type=monitor  (push raw subgoal trace -> typed feedback)
@@ -357,3 +359,17 @@ class MineEvolveAgent:
                 "next_index": self._next_index,
                 "plan_length": len(self._current_plan.subgoals) if self._current_plan else 0,
             }
+
+
+def _jsonable(value: Any) -> Any:
+    if isinstance(value, np.ndarray):
+        if value.shape == ():
+            return value.item()
+        return value.tolist()
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, Mapping):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    return value
