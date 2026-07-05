@@ -13,6 +13,7 @@ server:
 runtime:
   max_subgoals: 12              # cap on plan length
   max_steps_per_subgoal: 1200   # one in-game minute at 20 ticks per second
+  subgoal_timeout_s: 60
   eta_fail: 0.5                 # paper Eq. (5) failure-rate threshold
   recent_window: 4              # window h in Eq. (5)
   budget_tokens: 512            # paper Eq. (7) prompt budget B
@@ -40,6 +41,9 @@ record:
     path: videos/${now:%Y-%m-%d}
   action:
     save: false
+  evidence:
+    save: true
+    keyframe_interval: 40
 
 # Quality-of-life game commands issued at episode reset.
 # IMPORTANT: NO /give, NO /replaceitem, NO /fill <ore>. The agent must

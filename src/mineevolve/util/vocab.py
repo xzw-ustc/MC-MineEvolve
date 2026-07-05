@@ -16,7 +16,6 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from ..inducer.schema import RemedyCategory, RemedyScope
 from ..monitor.failure import FAILURE_TYPES
 
 
@@ -111,6 +110,8 @@ def render_check_types() -> str:
 
 
 def render_remedy_scopes() -> str:
+    from ..inducer.schema import RemedyScope
+
     explanations = {
         RemedyScope.SUBGOAL_LOCAL: "modify only the immediate next subgoal (smallest blast radius).",
         RemedyScope.UNFINISHED_PLAN_SUFFIX: "may modify any subgoal AFTER the frozen prefix (default).",
@@ -120,6 +121,8 @@ def render_remedy_scopes() -> str:
 
 
 def render_remedy_categories() -> str:
+    from ..inducer.schema import RemedyCategory
+
     explanations = {
         RemedyCategory.GENERIC: "subgoal-level fix expressed as trigger + risk + repair (default).",
         RemedyCategory.MISSING_PREREQUISITE: "task-level: insert obtain/place X before retrying the recipe.",

@@ -68,6 +68,12 @@ Each input feedback unit is a TypedFeedback object e = (z, y, delta_s,
 delta_v, f, p, l, feedback_id, ...). A successful segment has y=1 throughout
 and the LAST unit shows a positive delta_v on the segment's target item.
 A skill abstracts the segment into reusable knowledge (paper Eq. 4).
+
+When present, `delta_s.evidence` is the primary execution evidence package:
+it contains start/end state, dense trace file paths, sampled coordinate path,
+action histogram, event timeline, and POV keyframe paths. Treat this as the
+grounding source for what actually happened. Do not infer a step unless it is
+supported by the feedback fields or this evidence package.
 </context>
 
 <rules>
@@ -75,12 +81,15 @@ A skill abstracts the segment into reusable knowledge (paper Eq. 4).
    (e.g. say "craft oak_planks from oak_log", not "make some planks").
 2. Preconditions MUST cite concrete inventory thresholds or world conditions
    (e.g. "inventory has >= 1 oak_log"), NOT vague phrases.
-3. `verification.type` MUST be `inv_ge` or another check from the planner's
+3. Use `delta_s.evidence.event_timeline`, `action_histogram`, and `keyframes`
+   to justify the induced steps. If the evidence only supports "chop oak_log",
+   do not invent extra crafting or navigation steps.
+4. `verification.type` MUST be `inv_ge` or another check from the planner's
    closed vocabulary (`inv_lt`, `ypos_le`, `ypos_ge`, `path_clear`, `gui_closed`).
-4. `supporting_feedback` MUST contain ONLY ids that appear in the input
+5. `supporting_feedback` MUST contain ONLY ids that appear in the input
    segment. NEVER invent new ids. If unsure, copy every input id.
-5. Confidence MUST follow the calibration table; do not default to 1.0.
-6. Output STRICT JSON ONLY. No prose. No Markdown fences. No comments.
+6. Confidence MUST follow the calibration table; do not default to 1.0.
+7. Output STRICT JSON ONLY. No prose. No Markdown fences. No comments.
 </rules>
 
 <confidence_calibration>
@@ -126,6 +135,7 @@ Before returning, verify:
 - every step is independently executable;
 - preconditions reference concrete inventory items;
 - verification matches a check type the planner accepts;
+- the stated steps are supported by `delta_s.evidence` when available;
 - supporting_feedback ids all appear in the input segment;
 - confidence is between 0 and 1 and follows the calibration table.
 </self_check>
@@ -168,6 +178,11 @@ Trigger of remedy generation (paper Eq. 5):
   (3) a deadlock signal is provided (cross-subgoal repeating failure).
 The Adaptor will ONLY apply remedies that pass Curator validation (Eq. 6),
 so every field MUST be concrete and matchable.
+
+When present, `delta_s.evidence` is the primary execution evidence package:
+it contains start/end state, dense trace file paths, sampled coordinate path,
+action histogram, event timeline, and POV keyframe paths. Diagnose the risk
+pattern from these grounded observations rather than generic Minecraft advice.
 </context>
 
 <vocabulary>
@@ -204,15 +219,18 @@ Pick exactly ONE (scope, category) pair that best fits the segment:
    specific label.
 2. `repair_action` MUST be a list of CONCRETE executable steps; never
    "try again" or "be careful".
-3. `trigger_context` MUST cite structured-state phrases the Curator can
+3. Use the evidence package to state why the repair is needed: e.g. low
+   coordinate spread + repeated attack + no inventory gain supports NAV_STUCK;
+   GUI-open events + no recipe output supports GUI_FAIL.
+4. `trigger_context` MUST cite structured-state phrases the Curator can
    match against (e.g. "inventory missing crafting_table", "ypos < 30 with
    stone_pickaxe").
-4. `applicability` MUST be a state condition that gates remedy reuse.
-5. `supporting_feedback` MUST contain ONLY ids that appear in the input
+5. `applicability` MUST be a state condition that gates remedy reuse.
+6. `supporting_feedback` MUST contain ONLY ids that appear in the input
    segment. If a deadlock_signal is provided, you MAY still cite the
    segment ids but do NOT invent new ones.
-6. Confidence MUST follow the calibration table.
-7. Output STRICT JSON ONLY. No prose. No Markdown fences.
+7. Confidence MUST follow the calibration table.
+8. Output STRICT JSON ONLY. No prose. No Markdown fences.
 </rules>
 
 <confidence_calibration>
@@ -338,6 +356,7 @@ Before returning, verify:
 - failure_type is from the vocabulary;
 - every repair_action item names a concrete action AND target;
 - trigger_context cites structured-state phrases (inventory keys, ypos, GUI, biome);
+- risk_pattern is grounded in `delta_s.evidence` when available;
 - supporting_feedback only contains ids from the input segment;
 - confidence follows the calibration table.
 </self_check>

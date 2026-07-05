@@ -12,6 +12,8 @@ from __future__ import annotations
 
 from typing import Mapping, Sequence
 
+from ..util.items import inventory_delta_satisfies
+
 
 # Closed vocabulary for f_i in Eq. (1). The first five entries align with
 # paper Figure 3's Monitor "Failure / Stagnation Signals".
@@ -64,9 +66,10 @@ def diagnose_failure(
     if died:
         return "MOB_KILLED"
 
-    inv_increased_target = (
-        target_item is not None
-        and int(delta_v.get(str(target_item), 0)) > 0
+    inv_increased_target = target_item is not None and inventory_delta_satisfies(
+        delta_v,
+        target=str(target_item),
+        n=1,
     )
     if inv_increased_target:
         return "NONE"

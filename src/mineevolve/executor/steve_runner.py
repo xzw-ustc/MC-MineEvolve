@@ -61,7 +61,17 @@ class SteveRunner:
 
         # Last-resort: stash and apply per-step.
         self._condition_obj = condition
-        self._state = None
+        initial_state = getattr(self.policy, "initial_state", None)
+        if callable(initial_state):
+            try:
+                self._state = initial_state(condition=condition, batch_size=1)
+            except TypeError:
+                try:
+                    self._state = initial_state(batch_size=1)
+                except TypeError:
+                    self._state = initial_state()
+        else:
+            self._state = None
 
     # ------------------------------------------------------------------
     # Step
@@ -83,7 +93,17 @@ class SteveRunner:
 
         action_fn = getattr(self.policy, "get_action", None)
         if callable(action_fn):
-            return action_fn(obs)
+            try:
+                return action_fn(obs)
+            except TypeError as exc:
+                try:
+                    result = action_fn(obs, self._state)
+                except TypeError:
+                    raise exc
+                if isinstance(result, tuple) and len(result) == 2:
+                    action, self._state = result
+                    return action
+                return result
 
         raise RuntimeError("Loaded STEVE-1 policy exposes no recognised action method.")
 
